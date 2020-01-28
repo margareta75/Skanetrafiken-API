@@ -4,7 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+
+<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+
+<title>Index Skane App</title>
 <link rel="stylesheet" href="Style.css">
 </head>
 <body id="body">
@@ -35,7 +39,33 @@ Search for address, stop or station: <input id="go" type="text" name="to"><br>
 
 </form>
 
-
+<script>
+window.addEventListener("load", function(){
+    window.cookieconsent.initialise({
+        "palette": {
+            "popup": {
+                "background": "#edeff5",
+                "text": "#838391"
+            },
+            "button": {
+                "background": "#4b81e8"
+            }
+        },
+        "theme": "classic",
+        "type": "opt-in",
+        onInitialise: function (status) {
+            var type = this.options.type;
+            var didConsent = this.hasConsented();
+            if (type == 'opt-in' && didConsent) {
+                console.log('Ready to fire cookies');
+            }
+            if (type == 'opt-out' && !didConsent) {
+                // disable cookies
+            }
+        },
+    })
+});
+</script>
 
 
 </body>
