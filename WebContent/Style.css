@@ -12,6 +12,7 @@
 #body{
 	text-align-last: center;
 	font-family: 'Open Sans Condensed', sans-serif;
+  background-color: lightblue;
 	
 }
 
@@ -28,3 +29,9 @@
 	
 	
 }
+
+#button {
+	width:100%;
+	
+}
+
