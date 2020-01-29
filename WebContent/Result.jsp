@@ -1,3 +1,6 @@
+<%@page import="travelPackage.aBean"%>
+<%@page import="travelPackage.TravelData"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -13,6 +16,8 @@
 <fieldset class="container">
   	<legend><b>Result:</b></legend>
 <%
+
+
 String resultat1 = request.getParameter("resultat1");
 String r2 = request.getParameter("r2");
 String r3 = request.getParameter("r3");
@@ -23,9 +28,10 @@ String r6 = request.getParameter("r6");
 
 out.println("<b>" + "R1: " + "</b>" + resultat1);
 out.println("<b>" + "R2: " + "</b>" + r2 + "<br />");
-out.println("<b>" + "Adress (1): " + "</b>" + r3 + "<br />");
-out.println("<b>" + "Adress (2): " + "</b>" + r4 + "<br />");
-out.println("<b>" + "Mail: " + "</b>" + r5 + "<br />");
+out.println("<b>" + "R3: " + "</b>" + r3 + "<br />");
+out.println("<b>" + "R4: " + "</b>" + r4 + "<br />");
+out.println("<b>" + "R5: " + "</b>" + r5 + "<br />");
+out.println("<b>" + "R6: " + "</b>" + r5 + "<br />");
 
 
 if(resultat1.isEmpty() || r2.isEmpty() || r3.isEmpty() || 
