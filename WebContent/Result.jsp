@@ -5,13 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Result</title>
+<link rel="stylesheet" href="Style.css">
 </head>
 <body>
 
-<div class="container">
-
-<fieldset style="background-color: #f2f2f2; color: darkblue; border: 2px solid DodgerBlue;
-text-align: center; padding: 20px; padding-left: 50px; width: 60%;">
+<div >
+<fieldset class="container">
   	<legend><b>Result:</b></legend>
 <%
 String resultat1 = request.getParameter("resultat1");
