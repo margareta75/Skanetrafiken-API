@@ -33,9 +33,17 @@
 <h1 id="h1"
 > Where do you want to go?</h1>
 
-Current position: <input id="current" type="text" name="current"><br>
-Search for address, stop or station: <input id="go" type="text" name="to"><br>
-<input type="submit" value="Search">
+<ul id="current">
+  <li>Current position: </li>
+   <li> <input id="current" type="text" name="current">
+  </ul>  
+
+<ul id="go">
+  <li>Search for address, stop or station: </li>
+<li> <input id="go" type="text" name="to">
+</ul> 
+<input type="submit" value="Go!">
+
 
 </form>
 

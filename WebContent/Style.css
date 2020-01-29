@@ -5,15 +5,26 @@
 	
 	
 #h1 {
-	align: centre;
+	font-family: 'Open Sans Condensed', sans-serif;
 	
 }
 
 #body{
-	text-align: center;
+	text-align-last: center;
+	font-family: 'Open Sans Condensed', sans-serif;
+	
 }
 
 #current {
+	padding-right: 40px;
+	list-style-type: none;
+	
+	
+}
+
+#go {
+	padding-right: 40px;
+	list-style-type: none;
 	
 	
 }
