@@ -60,7 +60,7 @@ public class Servlet extends HttpServlet {
 				out.print("<br>");
 
 				// Build the API call by adding city+country into a URL
-				String URLtoSend = "http://www.labs.skanetrafiken.se/v2.2/querypage.asp?inpPointFr=" + current + "&inpPointTo=" + to;
+				String URLtoSend = "http://www.labs.skanetrafiken.se/v2.2/querystation.asp?inpPointfr=" + current;
 
 				System.out.println(URLtoSend);
 
@@ -85,7 +85,7 @@ public class Servlet extends HttpServlet {
 				// loop through the whole response
 				while ((inputLine = in.readLine()) != null) {
 					
-					//System.out.println(inputLine);
+					System.out.println(inputLine);
 					// Save the temp line into the full response
 					ApiResponse += inputLine;
 				}
@@ -103,19 +103,20 @@ public class Servlet extends HttpServlet {
 				System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
 
 				// Create a Node list that gets everything in and under the "clouds" tag  
-				NodeList nList = doc.getElementsByTagName("clouds");
-				
+				NodeList nList = doc.getElementsByTagName("StartPoints");
+				System.out.println(nList);
 				// loop through the content of the tag
 				for (int temp = 0; temp < nList.getLength(); temp++) {
-					// Save a node of the current list id 
+					
 					Node node = nList.item(temp);
+					System.out.println(node); 
 					if (node.getNodeType() == Node.ELEMENT_NODE) {
 
 						// set the current node as an Element
 						Element eElement = (Element) node;
 						// get the content of an attribute in element
 						// and print it out to the client 
-						out.print("The weather " + current + " is now a " + eElement.getAttribute("name"));
+						out.print("The weather " + current + " is now a " + eElement.getAttribute("point"));
 
 					}
 				}
