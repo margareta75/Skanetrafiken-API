@@ -5,28 +5,29 @@
 <head>
 <meta charset="UTF-8">
 <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&display=swap" rel="stylesheet">
-
 <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" />
 <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
-
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
 <title>Index Skane App</title>
 <link rel="stylesheet" href="Style.css">
 </head>
+
+
 <body id="body">
 
 
    <div id="map"></div>
     <script>
-		function initMap() {
-  		var malmo = {lat: 55.604980, lng: 13.003822};
-  		var map = new google.maps.Map(
-      		document.getElementById('map'), {zoom: 4, center: malmo});
-  		var marker = new google.maps.Marker({position: uluru, map: map});
-		}
-    </script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_tDySudXVuZRb7_O-x4bBYasm9_eThn4&callback=initMap">
-    </script>
+    var map = L.map('map').setView([0, 0], 1);
+    
+    L.tileLayer('https://api.maptiler.com/maps/basic/256/{z}/{x}/{y}.png?key=xmfJHLqvFpBzkbiNM8ov', {
+    	attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
+    }).addTo(map);
+    
+    var marker = L.marker([51.5, -0.09]).addto(map);
+    
+</script>
 
 <form action="<%= request.getContextPath() %>/Servlet" method="post">
 
