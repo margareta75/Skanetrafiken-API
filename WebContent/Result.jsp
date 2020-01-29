@@ -10,32 +10,34 @@
 </head>
 <body>
 
-
-<div >
 <fieldset class="container">
-  	<legend><b>RESULT:</b></legend>
-<%
-
-TravelData travelData = (TravelData) request.getAttribute("travelData");
-
-ArrayList<Journey> journeys = travelData.getJourneys();
-
-for ( int i = 0; i < journeys.size(); i++) {
-	out.println("<b>" + "From: " + "</b>" + journeys.get(i).getFrom()  + "<br />");
-	out.println("<b>" + "To: " + "</b>" + journeys.get(i).getTo() + "<br />");
-	out.println("<b>" + "Arrival Time: " + "</b>" + journeys.get(i).getArrivalTime() + "<br />");
-	out.println("<b>" + "Departure time: " + "</b>" + journeys.get(i).getDepartureTime() + "<br />");
-	out.println("<br />");
-}
-
-	
-out.println("<h2>" + "Have a nice trip!" + "</h2>");
-
-out.println("<center><img src=bus.gif></center>");
-
-%>
+	<legend><b>RESULT:</b></legend>
+	<div class="row">
+   		<div class="column">
+			<%
+			
+			TravelData travelData = (TravelData) request.getAttribute("travelData");
+			
+			ArrayList<Journey> journeys = travelData.getJourneys();
+			
+			for (int i = 0; i < journeys.size(); i++) {
+				out.println("<b>" + "From: " + "</b>" + journeys.get(i).getFrom()  + "<br />");
+				out.println("<b>" + "To: " + "</b>" + journeys.get(i).getTo() + "<br />");
+				out.println("<b>" + "Arrival Time: " + "</b>" + journeys.get(i).getArrivalTime() + "<br />");
+				out.println("<b>" + "Departure time: " + "</b>" + journeys.get(i).getDepartureTime() + "<br />");
+				out.println("<br />");
+			}
+				
+			out.println("<h2>" + "Have a nice trip!" + "</h2>");
+			
+			%>
+ 		</div>
+ 		<div class="column">
+			<iframe class="ledebur" src="https://www.openstreetmap.org/export/embed.html?bbox=13.008858561515808%2C55.59824121680327%2C13.012479543685913%2C55.5993050325025&amp;layer=mapnik&amp;marker=55.5987731282586%2C13.01066905260086"></iframe>	
+			<center><img src=bus.gif></center>
+		</div>
+	</div>
 </fieldset>
-</div>
 
 </body>
 </html>

@@ -13,40 +13,37 @@
 <link rel="stylesheet" href="Style.css">
 </head>
 
-
 <body id="body">
 
-
-   <div id="map"></div>
+<div id="map"></div>
     <script>
-    var map = L.map('map').setView([0, 0], 1);
     
-    L.tileLayer('https://api.maptiler.com/maps/basic/256/{z}/{x}/{y}.png?key=xmfJHLqvFpBzkbiNM8ov', {
-    	attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
-    }).addTo(map);
-    
-    var marker = L.marker([51.5, -0.09]).addto(map);
-    
-</script>
+	    var map = L.map('map').setView([55.604981, 13.003822], 15);
+	    
+	    L.tileLayer('https://api.maptiler.com/maps/basic/256/{z}/{x}/{y}.png?key=xmfJHLqvFpBzkbiNM8ov', {
+	    	attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
+	    }).addTo(map);
+	    
+	    var marker = L.marker([55.604981, 13.003822]).addto(map);
+
+	</script>
+
 
 <form action="<%= request.getContextPath() %>/Servlet" method="post">
 
-
-
-<h1 id="h1"
-> Where do you want to go?</h1>
-
-<ul id="current">
-  <li>Current position: </li>
-   <li> <input id="current" type="text" name="current">
-  </ul>  
-
-<ul id="go">
-  <li>Search for address, stop or station: </li>
-<li> <input id="go" type="text" name="to">
-</ul> 
-<input type="submit" value="Go!">
-
+	<h1 id="h1"
+	> Where do you want to go?</h1>
+	
+	<ul id="current">
+	  <li>Current position: </li>
+	   <li> <input id="current" type="text" name="current">
+	  </ul>  
+	
+	<ul id="go">
+	  <li>Search for address, stop or station: </li>
+	<li> <input id="go" type="text" name="to">
+	</ul> 
+	<input type="submit" value="Go!">
 
 </form>
 
