@@ -47,98 +47,14 @@ public class Servlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-    
-    
-    
- 
-    
-    
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
 
 		// Check if the right info got sent
-				response.setContentType("text/html");
-				PrintWriter out = response.getWriter();
-				String current = request.getParameter("current");
-				
-				
-				out.print("<br>");
-				out.print("start= " + current);
-
-				out.print("<br>");
-
-				String to = request.getParameter("to");
-				out.print("to= " + to);
-				out.print("<br>");
-
-				// Build the API call by adding city+country into a URL
-				String URLtoSend = "http://www.labs.skanetrafiken.se/v2.2/querystation.asp?inpPointfr=" + current;
-
-				System.out.println(URLtoSend);
-
-				// Set the URL that will be sent
-				URL line_api_url = new URL(URLtoSend);
-
-				// Create a HTTP connection to sent the GET request over
-				HttpURLConnection linec = (HttpURLConnection)line_api_url.openConnection();
-				linec.setDoInput(true);
-				linec.setDoOutput(true);
-				linec.setRequestMethod("GET");
-
-				// Make a Buffer to read the response from the API
-				BufferedReader in = new BufferedReader(new InputStreamReader(linec.getInputStream()));
-
-				// a String to temp save each line in the response
-				String inputLine;
-
-				// a String to save the full response to use later
-				String ApiResponse = "";
-
-				// loop through the whole response
-				while ((inputLine = in.readLine()) != null) {
-					
-					System.out.println(inputLine);
-					// Save the temp line into the full response
-					ApiResponse += inputLine;
-				}
-				in.close();
-				System.out.println(ApiResponse);
-				
-				
-				//Call a method to make a XMLdoc out of the full response
-				Document doc = convertStringToXMLDocument(ApiResponse);
-
-				
-				//normalize the XML response
-				doc.getDocumentElement().normalize();
-				// check that the XML response is OK by getting the Root element 
-				System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
-
-				// Create a Node list that gets everything in and under the "clouds" tag  
-				NodeList nList = doc.getElementsByTagName("StartPoints");
-				System.out.println(nList);
-				// loop through the content of the tag
-				for (int temp = 0; temp < nList.getLength(); temp++) {
-					
-					Node node = nList.item(temp);
-					System.out.println(node); 
-					if (node.getNodeType() == Node.ELEMENT_NODE) {
-
-						// set the current node as an Element
-						Element eElement = (Element) node;
-						// get the content of an attribute in element
-						// and print it out to the client 
-						out.print("The weather " + current + " is now a " + eElement.getAttribute("point"));
-
-					}
-				}
-		
-		
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		String current = request.getParameter("current");
