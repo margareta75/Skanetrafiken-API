@@ -1,6 +1,5 @@
 package travelPackage;
 
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -9,6 +8,8 @@ import java.io.StringReader;
 import java.net.HttpURLConnection;
 
 import java.net.URL;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,33 +27,45 @@ import org.xml.sax.InputSource;
 //import com.sun.tools.sjavac.comp.dependencies.PublicApiCollector;
 //import sun.security.action.GetBooleanAction;
 
-
 /**
  * Servlet implementation class Servlet
  */
 @WebServlet("/Servlet")
 public class Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public Servlet() {
-        super();
-		// TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
+	public Servlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+    
+    
+    
+ 
+    
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
-		
+
 		// Check if the right info got sent
 				response.setContentType("text/html");
 				PrintWriter out = response.getWriter();
 				String current = request.getParameter("current");
+				
+				
 				out.print("<br>");
 				out.print("start= " + current);
 
@@ -105,64 +118,133 @@ public class Servlet extends HttpServlet {
 				// check that the XML response is OK by getting the Root element 
 				System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
 
-				// Create a Node list that gets everything in and under Startpoints!
+				// Create a Node list that gets everything in and under the "clouds" tag  
 				NodeList nList = doc.getElementsByTagName("StartPoints");
 				System.out.println(nList);
-				
-				NodeList startList = nList.item(0).getChildNodes();
-				NodeList nodeList = doc.getElementsByTagName("EndPoints");
-				NodeList endList = nodeList.item(0).getChildNodes();
-				
-				int startID = checkNode(startList, current);
-				int endID = checkNode(endList, to); 
-				
-				
+				// loop through the content of the tag
+				for (int temp = 0; temp < nList.getLength(); temp++) {
+					
+					Node node = nList.item(temp);
+					System.out.println(node); 
+					if (node.getNodeType() == Node.ELEMENT_NODE) {
+
+						// set the current node as an Element
+						Element eElement = (Element) node;
+						// get the content of an attribute in element
+						// and print it out to the client 
+						out.print("The weather " + current + " is now a " + eElement.getAttribute("point"));
+
+					}
+				}
 		
+		
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
+		String current = request.getParameter("current");
+		String to = request.getParameter("to");
+		
+		out.print(to + " " + current);
+		
+		// Build the API call by adding city+country into a URL
+		String URLtoSend = "http://labs.skanetrafiken.se/v2.2/querystation.asp?inpPointfr=malmo&inpPointto=lund%20c";
+
+		System.out.println(URLtoSend);
+
+		// Set the URL that will be sent
+		URL line_api_url = new URL(URLtoSend);
+
+		// Create a HTTP connection to sent the GET request over
+		HttpURLConnection linec = (HttpURLConnection) line_api_url.openConnection();
+		linec.setDoInput(true);
+		linec.setDoOutput(true);
+		linec.setRequestMethod("GET");
+
+		// Make a Buffer to read the response from the API
+		BufferedReader in = new BufferedReader(new InputStreamReader(linec.getInputStream()));
+
+		// a String to temp save each line in the response
+		String inputLine;
+
+		// a String to save the full response to use later
+		String ApiResponse = "";
+
+		// loop through the whole response
+		while ((inputLine = in.readLine()) != null) {
+
+			System.out.println(inputLine);
+			// Save the temp line into the full response
+			ApiResponse += inputLine;
+		}
+		in.close();
+		System.out.println(ApiResponse);
+
+		// Call a method to make a XMLdoc out of the full response
+		Document doc = convertStringToXMLDocument(ApiResponse);
+
+		// normalize the XML response
+		doc.getDocumentElement().normalize();
+		// check that the XML response is OK by getting the Root element
+		System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
+
+		// Create a Node list that gets everything in and under Startpoints!
+		NodeList nList = doc.getElementsByTagName("StartPoints");
+		System.out.println(nList);
+
+		NodeList startList = nList.item(0).getChildNodes();
+		NodeList nodeList = doc.getElementsByTagName("EndPoints");
+		NodeList endList = nodeList.item(0).getChildNodes();
+
+		int startID = 80118; // checkNode(startList, current);
+		int endID = 78114; // checkNode(endList, to);
+
+		int travelIDs[] = { startID, endID };
+
+		request.setAttribute("travelID", travelIDs);
+
+		// Skickar datan vidare till traveldataservletten!
+		RequestDispatcher idSender = request.getRequestDispatcher("TravelDataServlet");
+		idSender.forward(request, response);
+
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-	
-	// Method the makes a XML doc out of a string, if it is in a XML format. 	
-		private static Document convertStringToXMLDocument(String xmlString) {
-			// Parser that produces DOM object trees from XML content
-			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
-			// API to obtain DOM Document instance
-			DocumentBuilder builder = null;
-			try {
-				// Create DocumentBuilder with default configuration
-				builder = factory.newDocumentBuilder();
+	// Method the makes a XML doc out of a string, if it is in a XML format.
+	private static Document convertStringToXMLDocument(String xmlString) {
+		// Parser that produces DOM object trees from XML content
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
-				// Parse the content to Document object
-				Document doc = builder.parse(new InputSource(new StringReader(xmlString)));
-				return doc;
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			return null;
+		// API to obtain DOM Document instance
+		DocumentBuilder builder = null;
+		try {
+			// Create DocumentBuilder with default configuration
+			builder = factory.newDocumentBuilder();
+
+			// Parse the content to Document object
+			Document doc = builder.parse(new InputSource(new StringReader(xmlString)));
+			return doc;
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-	
-	
+		return null;
+	}
+
 	private int checkNode(NodeList node, String name) {
-		
-		
+
 		for (int i = 0; i < node.getLength(); i++) {
 			System.out.println(node.item(i).getTextContent());
-			
-		}	
-		
-		
+
+		}
+
 		return 0;
 	}
-	
-	
-	
-	
 
 }
