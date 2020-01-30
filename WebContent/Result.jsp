@@ -24,11 +24,10 @@
 			ArrayList<Journey> journeys = travelData.getJourneys();
 			
 			for (int i = 0; i < journeys.size(); i++) {
-				out.println("<b>" + "From: " + "</b>" + journeys.get(i).getFrom()  + "<br />");
-				out.println("<b>" + "To: " + "</b>" + journeys.get(i).getTo() + "<br />");
+				out.println("<ul class='list'>" + "<b>" + "From: " + "</b>" + journeys.get(i).getFrom());
+				out.println("<b>" + " To: " + "</b>" + journeys.get(i).getTo() + "<br />");
 				out.println("<b>" + "Departure time: " + "</b>" + journeys.get(i).getDepartureTime() + "<br />");
-				out.println("<b>" + "Arrival Time: " + "</b>" + journeys.get(i).getArrivalTime() + "<br />");
-				out.println("<br />");
+				out.println("<b>" + "Arrival Time: " + "</b>" + journeys.get(i).getArrivalTime() + "</ul>");
 			}
 				
 			out.println("<h2>" + "Have a nice trip!" + "</h2>");

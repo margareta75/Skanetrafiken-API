@@ -57,6 +57,17 @@
 	border: 1px solid black;
 }
 
+.list {
+    border-style: outset;
+    border-color: green; 
+    border-radius: 30px;
+    border-width: 1px;
+    background-color: #00ff80;
+    color: darkblue;  
+   	padding-top: 5px;
+   	padding-bottom: 5px;
+}
+
 /*mobil anpassning*/
 @media screen and (max-width: 600px) {
   .column {
