@@ -1,6 +1,8 @@
 package travelPackage;
 
 
+import java.util.ArrayList;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -90,6 +92,15 @@ public class TravelDataExtractor {
 			
 			node = node.getNextSibling();
 		}
+		
+		ArrayList<Route> routes = journey.getRoutes();
+		Route firstRoute = routes.get(0);
+		Route lastRoute = routes.get(routes.size() - 1);
+		String from = firstRoute.getFrom();
+		String to = lastRoute.getTo();
+		
+		journey.setFrom(from);
+		journey.setTo(to);
 		
 		travelData.addJourney(journey);
 	}
