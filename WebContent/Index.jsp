@@ -76,24 +76,7 @@ window.addEventListener("load", function(){
 });
 </script>
 
-<script>
-function char_convert() {
 
-    var chars = ["Å","Ä","Ö"]; 
-    var codes = ["a", "a", "o"];
-
-    for(x=0; x<chars.length; x++){
-        for (i=0; i<arguments.length; i++){
-            arguments[i].value = arguments[i].value.replace(chars[x], codes[x]);
-        }
-        document.getElementById("current");
-
-    }
- }
-
-char_convert(this);
-
-</script>
 
 </body>
 </html>
