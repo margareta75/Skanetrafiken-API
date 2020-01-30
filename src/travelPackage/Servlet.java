@@ -24,9 +24,9 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
-import com.sun.tools.sjavac.comp.dependencies.PublicApiCollector;
-
-import sun.security.action.GetBooleanAction;
+//import com.sun.tools.sjavac.comp.dependencies.PublicApiCollector;
+//
+//import sun.security.action.GetBooleanAction;
 
 /**
  * Servlet implementation class Servlet
@@ -58,15 +58,12 @@ public class Servlet extends HttpServlet {
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		String current = request.getParameter("current");
-
-		
-
 		String to = request.getParameter("to");
 		
-		
+		out.print(to + " " + current);
 		
 		// Build the API call by adding city+country into a URL
-		String URLtoSend = "http://www.labs.skanetrafiken.se/v2.2/querystation.asp?inpPointfr=" + current;
+		String URLtoSend = "http://labs.skanetrafiken.se/v2.2/querystation.asp?inpPointfr=malmo&inpPointto=lund%20c";
 
 		System.out.println(URLtoSend);
 

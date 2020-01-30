@@ -30,7 +30,7 @@
 
 
 
-<form action="<%= request.getContextPath() %>/Servlet" method="post">
+<form action="<%= request.getContextPath() %>/Servlet" method="get">
 
 	<h1 id="h1"
 	> Where do you want to go?</h1>
