@@ -47,7 +47,7 @@ public class TravelDataExtractor {
 
 	public void extract() {
 		
-		System.out.println("Extract travelData");
+//		System.out.println("Extract travelData");
 		
 		NodeList journeys = getJourneys();
 		
@@ -67,7 +67,7 @@ public class TravelDataExtractor {
 		Node node = journeyNode.getFirstChild();
 		Journey journey = new Journey();
 		
-		System.out.println("Handle journey node");
+//		System.out.println("Handle journey node");
 
 		while (node != null) {
 			
@@ -77,11 +77,11 @@ public class TravelDataExtractor {
 			switch (name) {
 			case "DepDateTime":
 				journey.setDepartureTime(node.getFirstChild().getNodeValue());
-				System.out.println("Dep. time: " + journey.getDepartureTime());
+//				System.out.println("Dep. time: " + journey.getDepartureTime());
 				break;
 			case "ArrDateTime":
 				journey.setArrivalTime(node.getFirstChild().getNodeValue());
-				System.out.println("Arr. time: " + journey.getArrivalTime());
+//				System.out.println("Arr. time: " + journey.getArrivalTime());
 				break;
 			case "RouteLinks":
 				handleRouteLinks(node, journey);
@@ -121,7 +121,7 @@ public class TravelDataExtractor {
 		Node node = routeNode.getFirstChild();
 		Route route = new Route();
 		
-		System.out.println("Handle route node");
+//		System.out.println("Handle route node");
 
 		while (node != null) {
 			
@@ -131,11 +131,11 @@ public class TravelDataExtractor {
 			switch (name) {
 			case "DepDateTime":
 				route.setDepartureTime(node.getFirstChild().getNodeValue());
-				System.out.println("Dep. time: " + route.getDepartureTime());
+//				System.out.println("Dep. time: " + route.getDepartureTime());
 				break;
 			case "ArrDateTime":
 				route.setArrivalTime(node.getFirstChild().getNodeValue());
-				System.out.println("Arr. time: " + route.getArrivalTime());
+//				System.out.println("Arr. time: " + route.getArrivalTime());
 				break;
 			case "From":
 				route.setFrom(getStopPointName(node));
@@ -169,7 +169,7 @@ public class TravelDataExtractor {
 			if (name == "Name") {
 				
 				stopPointName = node.getFirstChild().getNodeValue();
-				System.out.println(stopPointName);
+//				System.out.println(stopPointName);
 				break;
 			}
 			node = node.getNextSibling();
@@ -182,7 +182,7 @@ public class TravelDataExtractor {
 
 		Node node = lineNode.getFirstChild();
 		
-		System.out.println("Handle line node");
+//		System.out.println("Handle line node");
 
 		while (node != null) {
 			
@@ -192,15 +192,15 @@ public class TravelDataExtractor {
 			switch (name) {
 			case "Name":
 				route.setName(node.getFirstChild().getNodeValue());
-				System.out.println(route.getName());
+//				System.out.println(route.getName());
 				break;
 			case "LineTypeName":
 				route.setLineType(node.getFirstChild().getNodeValue());
-				System.out.println(route.getLineType());
+//				System.out.println(route.getLineType());
 				break;
 			case "Towards":
 				route.setTowards(node.getFirstChild().getNodeValue());
-				System.out.println(route.getTowards());
+//				System.out.println(route.getTowards());
 				break;
 			default:
 				break;
