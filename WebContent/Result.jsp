@@ -1,8 +1,6 @@
-<%@page import="travelPackage.aBean"%>
-<%@page import="travelPackage.TravelData"%>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"
+    import="travelPackage.*, java.util.ArrayList"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,41 +10,34 @@
 </head>
 <body>
 
-
-<div >
 <fieldset class="container">
-  	<legend><b>Result:</b></legend>
-<%
-
-
-String resultat1 = request.getParameter("resultat1");
-String r2 = request.getParameter("r2");
-String r3 = request.getParameter("r3");
-String r4 = request.getParameter("r4");
-String r5 = request.getParameter("r5");
-String r6 = request.getParameter("r6");
-
-
-out.println("<b>" + "R1: " + "</b>" + resultat1);
-out.println("<b>" + "R2: " + "</b>" + r2 + "<br />");
-out.println("<b>" + "R3: " + "</b>" + r3 + "<br />");
-out.println("<b>" + "R4: " + "</b>" + r4 + "<br />");
-out.println("<b>" + "R5: " + "</b>" + r5 + "<br />");
-out.println("<b>" + "R6: " + "</b>" + r5 + "<br />");
-
-
-if(resultat1.isEmpty() || r2.isEmpty() || r3.isEmpty() || 
-	r4.isEmpty() || r5.isEmpty() || r6.isEmpty())
-	out.println("<h2>" + "You have to choose destination!" + "</h2>" + "<br />" + "<br />");
-else 
-	out.println("<h2>" + "Have a nice trip!" + "</h2>"+ "<br />" + "<br />");
-
-
-out.println("<center><img src=bus.gif></center>");
-
-%>
+	<legend><b>RESULT:</b></legend>
+	<div class="row">
+   		<div class="column">
+			<%
+			
+			TravelData travelData = (TravelData) request.getAttribute("travelData");
+			
+			ArrayList<Journey> journeys = travelData.getJourneys();
+			
+			for (int i = 0; i < journeys.size(); i++) {
+				out.println("<b>" + "From: " + "</b>" + journeys.get(i).getFrom()  + "<br />");
+				out.println("<b>" + "To: " + "</b>" + journeys.get(i).getTo() + "<br />");
+				out.println("<b>" + "Arrival Time: " + "</b>" + journeys.get(i).getArrivalTime() + "<br />");
+				out.println("<b>" + "Departure time: " + "</b>" + journeys.get(i).getDepartureTime() + "<br />");
+				out.println("<br />");
+			}
+				
+			out.println("<h2>" + "Have a nice trip!" + "</h2>");
+			
+			%>
+ 		</div>
+ 		<div class="column">
+			<iframe class="ledebur" src="https://www.openstreetmap.org/export/embed.html?bbox=13.008858561515808%2C55.59824121680327%2C13.012479543685913%2C55.5993050325025&amp;layer=mapnik&amp;marker=55.5987731282586%2C13.01066905260086"></iframe>	
+			<center><img src=bus.gif></center>
+		</div>
+	</div>
 </fieldset>
-</div>
 
 </body>
 </html>

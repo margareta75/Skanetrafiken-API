@@ -13,7 +13,6 @@
 <link rel="stylesheet" href="Style.css">
 </head>
 
-
 <body id="body">
 
 
@@ -30,24 +29,22 @@
 </script>
 
 
+
 <form action="<%= request.getContextPath() %>/Servlet" method="post">
 
-
-
-<h1 id="h1"
-> Where do you want to go?</h1>
-
-<ul id="current">
-  <li>Current position: </li>
-   <li> <input id="current" type="text" name="current">
-  </ul>  
-
-<ul id="go">
-  <li>Search for address, stop or station: </li>
-<li> <input id="go" type="text" name="to">
-</ul> 
-<input type="submit" value="Go!">
-
+	<h1 id="h1"
+	> Where do you want to go?</h1>
+	
+	<ul id="current">
+	  <li>Current position: </li>
+	   <li> <input id="current" type="text" name="current">
+	  </ul>  
+	
+	<ul id="go">
+	  <li>Search for address, stop or station: </li>
+	<li> <input id="go" type="text" name="to">
+	</ul> 
+	<input type="submit" value="Go!">
 
 </form>
 
