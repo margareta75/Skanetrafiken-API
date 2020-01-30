@@ -41,25 +41,25 @@ public class TravelDataServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-//		response.getWriter().append("Served at: ").append(request.getContextPath());
-//
-//		// Check if the right info got sent
-//		response.setContentType("text/html");
-//		PrintWriter out = response.getWriter();
-//		String cityStr = request.getParameter("city");
-//		out.print("<br>");
-//		out.print("City= " + cityStr);
-//
-//		out.print("<br>");
-//
-//		String countryStr = request.getParameter("country");
-//		out.print("Country= " + countryStr);
-//		out.print("<br>");
+		int startId = 80118;
+		int endId = 82000;
+		Object travelIdObject = request.getAttribute("travelID");
+		
+		System.out.println("Stations: " + travelIdObject);
 
+		if (travelIdObject != null) {
+			
+			int travelIds[] = (int[]) travelIdObject;
+			
+			startId = travelIds[0];
+			endId = travelIds[1];
+			System.out.println("Stations: " + startId + ", " + endId);
+		}
+		
 		// Build the API call
 		String URLtoSend = "http://www.labs.skanetrafiken.se/v2.2/resultspage.asp?"
-				+ "cmdaction=next&selPointFr=malm%F6%20Stadshuset|80118|0&selPointTo=landskrona|82000|0&"
-				+ "LastStart=2020-01-23%2016:38";
+				+ "cmdaction=next&selPointFr=|" + startId + "|0&selPointTo=|" + endId + "|0&"
+				+ "LastStart=2020-01-30%2013:38";
 
 		System.out.println(URLtoSend);
 
