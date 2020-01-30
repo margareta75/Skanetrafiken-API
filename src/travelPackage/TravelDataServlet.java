@@ -73,7 +73,7 @@ public class TravelDataServlet extends HttpServlet {
 		linec.setRequestMethod("GET");
 
 		// Make a Buffer to read the response from the API
-		BufferedReader in = new BufferedReader(new InputStreamReader(linec.getInputStream()));
+		BufferedReader in = new BufferedReader(new InputStreamReader(linec.getInputStream(), "UTF-8"));
 
 		// a String to temp save each line in the response
 		String inputLine;
