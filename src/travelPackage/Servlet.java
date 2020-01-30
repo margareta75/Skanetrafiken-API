@@ -47,6 +47,59 @@ public class Servlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	
+	 public String encoding (String tempString) {
+	    	for (int ii = 0 ; ii < tempString.length() ; ii++) {
+	    	if (tempString.charAt(ii)=='Ã') {
+	    	StringBuffer s1 = new StringBuffer(tempString);
+	    	switch (tempString.charAt(ii+1)) {
+	    	case '¶':{
+	    	s1.replace(tempString.indexOf("Ã"), tempString.indexOf("¶")+1, "ö");
+	    	tempString = s1.toString();
+	    	break;
+	    	}
+	    	case '¥':{
+	    	s1.replace(tempString.indexOf("Ã"), tempString.indexOf("¥")+1, "å");
+	    	tempString = s1.toString();
+	    	break;
+	    	}
+	    	case '¤':{
+	    	s1.replace(tempString.indexOf("Ã"), tempString.indexOf("¤")+1, "ä");
+	    	tempString = s1.toString();
+	    	break;
+	    	}
+	    	case '?':{
+	    	s1.replace(tempString.indexOf("Ã"), tempString.indexOf("?")+1, "Ö");
+	    	tempString = s1.toString();
+	    	break;
+	    	}
+	    	case '–':{
+	    	s1.replace(tempString.indexOf("Ã"), tempString.indexOf("–")+1, "Ö");
+	    	tempString = s1.toString();
+	    	break;
+	    	}
+	    	case '„':{
+	    	s1.replace(tempString.indexOf("Ã"), tempString.indexOf("„")+1, "Ä");
+	    	tempString = s1.toString();
+	    	break;
+	    	}
+	    	case '…':{
+	    	s1.replace(tempString.indexOf("Ã"), tempString.indexOf("…")+1, "Å");
+	    	tempString = s1.toString();
+	    	break;
+	    	}
+	    	case '©':{
+	    	s1.replace(tempString.indexOf("Ã"), tempString.indexOf("©")+1, "é");
+	    	tempString = s1.toString();
+	    	break;
+	    	}
+	    	}
+	    	}
+	    	} 
+	    	return tempString;
+	 }
+	
+	
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -57,10 +110,18 @@ public class Servlet extends HttpServlet {
 		// Check if the right info got sent
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-		String current = request.getParameter("current");
-		String to = request.getParameter("to");
+		String stringTemp = encoding("current");
 		
-		out.print(to + " " + current);
+		out.print("<br>");
+		out.print("start= " + stringTemp);
+
+		out.print("<br>");
+
+		String to = request.getParameter("to");
+		String stringTemp2 = encoding(to);
+		out.print("to= " + stringTemp2);
+		out.print("<br>");
+		
 		
 		// Build the API call by adding city+country into a URL
 		String URLtoSend = "http://labs.skanetrafiken.se/v2.2/querystation.asp?inpPointfr=malmo&inpPointto=lund%20c";
