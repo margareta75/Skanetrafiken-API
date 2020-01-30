@@ -15,21 +15,21 @@
 
 <body id="body">
 
-
-   <div id="map"></div>
-    
-    
- <script>
-    var map = L.map('map').setView([0, 0], 1);
-    
+<!-- script code for map -->
+<div id="map"></div>
+    <script>
+    var map = L.map('map').setView([55.59880451132639, 13.00845021573216], 15);
+       
     L.tileLayer('https://api.maptiler.com/maps/basic/256/{z}/{x}/{y}.png?key=xmfJHLqvFpBzkbiNM8ov', {
-    	attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
+    	attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" layer=transportmap&amp target="_blank">&copy; OpenStreetMap contributors</a>',
     }).addTo(map);
+    
+    var marker = L.marker([55.59880451132639, 13.00845021573216]).addto(map);
+    
+	</script>
 
-</script>
 
-
-
+<!-- form to retrieve data -->
 <form action="<%= request.getContextPath() %>/Servlet" method="post">
 
 	<h1 id="h1"
@@ -48,6 +48,7 @@
 
 </form>
 
+<!-- script code for cookie message -->
 <script>
 window.addEventListener("load", function(){
     window.cookieconsent.initialise({
@@ -76,6 +77,7 @@ window.addEventListener("load", function(){
 });
 </script>
 
+<!-- script code for converting letters -->
 <script>
 function char_convert() {
 
