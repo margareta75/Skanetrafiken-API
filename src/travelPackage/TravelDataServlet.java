@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.time.LocalDateTime;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -41,11 +42,15 @@ public class TravelDataServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		String dateTime = LocalDateTime.now().toString();
+		String time = dateTime.substring(0, 10) + "%20" + dateTime.substring(11, 16);
+		
 		int startId = 80118;
 		int endId = 82000;
 		Object travelIdObject = request.getAttribute("travelID");
 		
-		System.out.println("Stations: " + travelIdObject);
+		System.out.println("Stations: " + travelIdObject + ", time: " + time);
 
 		if (travelIdObject != null) {
 			
@@ -59,7 +64,7 @@ public class TravelDataServlet extends HttpServlet {
 		// Build the API call
 		String URLtoSend = "http://www.labs.skanetrafiken.se/v2.2/resultspage.asp?"
 				+ "cmdaction=next&selPointFr=|" + startId + "|0&selPointTo=|" + endId + "|0&"
-				+ "LastStart=2020-01-30%2013:38";
+				+ "LastStart=" + time;
 
 		System.out.println(URLtoSend);
 
