@@ -23,6 +23,10 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
+import com.sun.tools.sjavac.comp.dependencies.PublicApiCollector;
+
+import sun.security.action.GetBooleanAction;
+
 
 
 /**
@@ -37,7 +41,7 @@ public class Servlet extends HttpServlet {
      */
     public Servlet() {
         super();
-        // TODO Auto-generated constructor stub
+		// TODO Auto-generated constructor stub
     }
 
 	/**
@@ -103,31 +107,18 @@ public class Servlet extends HttpServlet {
 				// check that the XML response is OK by getting the Root element 
 				System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
 
-				// Create a Node list that gets everything in and under the "clouds" tag  
+				// Create a Node list that gets everything in and under Startpoints!
 				NodeList nList = doc.getElementsByTagName("StartPoints");
 				System.out.println(nList);
-				// loop through the content of the tag
-				for (int temp = 0; temp < nList.getLength(); temp++) {
-					
-					Node node = nList.item(temp);
-					System.out.println(node); 
-					if (node.getNodeType() == Node.ELEMENT_NODE) {
-
-						// set the current node as an Element
-						Element eElement = (Element) node;
-						// get the content of an attribute in element
-						// and print it out to the client 
-						out.print("The weather " + current + " is now a " + eElement.getAttribute("point"));
-
-					}
-				}
-
-		
-		
-		
-		
-		
-		
+				
+				NodeList startList = nList.item(0).getChildNodes();
+				NodeList nodeList = doc.getElementsByTagName("EndPoints");
+				NodeList endList = nodeList.item(0).getChildNodes();
+				
+				int startID = checkNode(startList, current);
+				int endID = checkNode(endList, to); 
+				
+				
 		
 	}
 
@@ -160,7 +151,17 @@ public class Servlet extends HttpServlet {
 		}
 	
 	
-	
+	private int checkNode(NodeList node, String name) {
+		
+		
+		for (int i = 0; i < node.getLength(); i++) {
+			System.out.println(node.item(i).getTextContent());
+			
+		}	
+		
+		
+		return 0;
+	}
 	
 	
 	
