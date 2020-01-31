@@ -8,6 +8,7 @@ import java.io.StringReader;
 import java.net.HttpURLConnection;
 
 import java.net.URL;
+import java.net.URLEncoder;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -48,9 +49,30 @@ public class Servlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+		String rawFrom;
+		String rawTo;
+		String from = "";
+		String to = "";
+		
+		request.setCharacterEncoding("UTF-8");
+		
+		rawFrom = request.getParameter("current");
+		rawTo = request.getParameter("to");
+		System.out.println(rawFrom + " " + rawTo);
+
+		if (rawFrom != null) {
+			from = URLEncoder.encode(rawFrom, "UTF-8");
+		}
+		
+		if (rawTo != null) {
+			to = URLEncoder.encode(rawTo, "UTF-8");
+		}
+		
+		System.out.println(from + " " + to);
 		
 		// Build the API call by adding city+country into a URL
-		String URLtoSend = "http://labs.skanetrafiken.se/v2.2/querystation.asp?inpPointfr=malmo&inpPointto=lund%20c";
+		String URLtoSend = "http://labs.skanetrafiken.se/v2.2/querystation.asp?inpPointFr=" + from + "&inpPointTo=" + to;
 
 		System.out.println(URLtoSend);
 
@@ -64,7 +86,7 @@ public class Servlet extends HttpServlet {
 		linec.setRequestMethod("GET");
 
 		// Make a Buffer to read the response from the API
-		BufferedReader in = new BufferedReader(new InputStreamReader(linec.getInputStream()));
+		BufferedReader in = new BufferedReader(new InputStreamReader(linec.getInputStream(), "UTF-8"));
 
 		// a String to temp save each line in the response
 		String inputLine;
@@ -75,7 +97,7 @@ public class Servlet extends HttpServlet {
 		// loop through the whole response
 		while ((inputLine = in.readLine()) != null) {
 
-			System.out.println(inputLine);
+			// System.out.println(inputLine);
 			// Save the temp line into the full response
 			ApiResponse += inputLine;
 		}
@@ -92,12 +114,18 @@ public class Servlet extends HttpServlet {
 
 		// Create a Node list that gets everything in and under Startpoints!
 		NodeList nList = doc.getElementsByTagName("StartPoints");
+		NodeList startList;
 		System.out.println(nList);
-
-		NodeList startList = nList.item(0).getChildNodes();
+		if (nList.getLength() > 0) {
+			startList = nList.item(0).getChildNodes();			
+		}
+		
 		NodeList nodeList = doc.getElementsByTagName("EndPoints");
-		NodeList endList = nodeList.item(0).getChildNodes();
-
+		NodeList endList;
+		if (nodeList.getLength() > 0) {
+			endList = nodeList.item(0).getChildNodes();			
+		}
+		
 		int startID = 80118; // checkNode(startList, current);
 		int endID = 78114; // checkNode(endList, to);
 
