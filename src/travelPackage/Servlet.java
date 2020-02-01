@@ -25,6 +25,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
+//import com.sun.tools.javac.code.Type.ForAll;
+
 //import com.sun.tools.sjavac.comp.dependencies.PublicApiCollector;
 //import sun.security.action.GetBooleanAction;
 
@@ -114,19 +116,23 @@ public class Servlet extends HttpServlet {
 
 		// Create a Node list that gets everything in and under Startpoints!
 		NodeList nList = doc.getElementsByTagName("StartPoints");
-		NodeList startList;
+//		NodeList startList;
+		
 		System.out.println(nList);
-		if (nList.getLength() > 0) {
-			startList = nList.item(0).getChildNodes();			
-		}
 		
-		NodeList nodeList = doc.getElementsByTagName("EndPoints");
-		NodeList endList;
-		if (nodeList.getLength() > 0) {
-			endList = nodeList.item(0).getChildNodes();			
-		}
+//		if (nList.getLength() > 0) {
+//			startList = nList.item(0).getChildNodes();			
+//		}
 		
-		int startID = 80118; // checkNode(startList, current);
+//		NodeList nodeList = doc.getElementsByTagName("EndPoints");
+//		NodeList endList;
+//		
+//		if (nodeList.getLength() > 0) {
+//			endList = nodeList.item(0).getChildNodes();			
+//		}
+//		
+		
+		int startID = checkNode(nList, from);
 		int endID = 78114; // checkNode(endList, to);
 
 		int travelIDs[] = { startID, endID };
@@ -170,13 +176,31 @@ public class Servlet extends HttpServlet {
 	}
 
 	private int checkNode(NodeList node, String name) {
-
-		for (int i = 0; i < node.getLength(); i++) {
-			System.out.println(node.item(i).getTextContent());
-
+		
+		int idNumber;
+		for(int i = 0; i < node.getLength(); i++ ) {	//går i genom alla points en efter en tills man hittar rätt point!
+			
+			NodeList startList = node.item(i).getChildNodes();			
+			
+			
+			for (int j = 0; j < startList.getLength(); j++) { //Ska hittar rätt ID och name
+				if(startList.item(j).getNodeName().equals("ID")) {
+					try {
+					idNumber = Integer.parseInt(startList.item(j).getTextContent());
+					}catch(NumberFormatException e) {
+						idNumber = 0;
+					}
+				}
+				
+				if(startList.item(j).getTextContent().equals(name)) {
+				System.out.println(startList.item(j).getTextContent());
+				return idNumber;
+				}
+	
+			}
+		
 		}
-
-		return 0;
+		return idNumber;
 	}
 
 }
