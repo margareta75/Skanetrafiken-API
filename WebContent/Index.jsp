@@ -32,21 +32,89 @@
 <!-- form to retrieve data -->
 <form action="<%= request.getContextPath() %>/Servlet" method="post">
 
-	<h1 id="h1"
-	> Where do you want to go?</h1>
+	<h1 id="h1"> Where do you want to go?</h1>
 	
 	<ul id="current">
-	  <li>Current position: </li>
-	   <li> <input id="current" type="text" name="current">
-	  </ul>  
+		<li>Current position: </li>
+	   	<li> <input id="current" type="text" name="current">
+	</ul>  
 	
 	<ul id="go">
-	  <li>Search for address, stop or station: </li>
-	<li> <input id="go" type="text" name="to">
+		<li>Search for address, stop or station: </li>
+		<li> <input id="go" type="text" name="to">
 	</ul> 
 	<input type="submit" value="Go!">
 
 </form>
+
+<br><br>
+
+<!-- code to show cookies (with one word and with swedish letters) -->
+<p>Last search / refresh page.</p>
+<%
+try {
+	response.setContentType("text/html");
+	
+	Cookie cookies[] = request.getCookies();
+	String cookieName1 = cookies[0].getName();
+	String cookieName2 = cookies[1].getName();
+	String cookieName3 = cookies[2].getName();
+	String cookieName4 = cookies[3].getName();
+	
+	out.println("<br><b>Last search: </b>");
+	
+	if (cookieName1.contentEquals("currentPos")) {
+		String currentPosition = cookies[0].getValue(); 
+		out.println("<br><b> From: </b>" + currentPosition);
+	}
+	else if (cookieName2.contentEquals("currentPos")) {
+		String currentPosition = cookies[1].getValue(); 
+		out.println("<br><b> From: </b>" + currentPosition);
+	}
+	else if (cookieName3.contentEquals("currentPos")) {
+		String currentPosition = cookies[2].getValue(); 
+		out.println("<br><b> From: </b>" + currentPosition);
+	}
+	else if (cookieName3.contentEquals("currentPos")) {
+		String currentPosition = cookies[2].getValue(); 
+		out.println("<br><b> From: </b>" + currentPosition);
+	}
+	else {
+		out.println("<br><b> From: </b>There is no recent searches");
+	}
+
+	if (cookieName1.contentEquals("searchPos")) {
+		String searchPosition = cookies[0].getValue(); 
+		out.println("<br><b> To: </b>" + searchPosition);
+	}
+	else if (cookieName2.contentEquals("searchPos")) {
+		String searchPosition = cookies[1].getValue(); 
+		out.println("<br><b> To: </b>" + searchPosition);
+	}
+	else if (cookieName3.contentEquals("searchPos")) {
+		String searchPosition = cookies[2].getValue(); 
+		out.println("<br><b> To: </b>" + searchPosition);
+	}
+	else if (cookieName3.contentEquals("searchPos")) {
+		String searchPosition = cookies[2].getValue(); 
+		out.println("<br><b> To: </b>" + searchPosition);
+	}
+	else {
+		out.println("<br><b> To: </b>There is no recent searches");
+	}
+	
+	
+	out.println("<br><b>Cookies: </b>");
+	for(int i = 0; i < cookies.length; i++) {  
+		out.println("<br>" + cookies[i].getValue());
+	} 		
+}
+catch (Exception e) {
+	System.out.println(e);
+}			
+%>	
+
+<br><br>
 
 <!-- script code for cookie message -->
 <script>
@@ -75,26 +143,6 @@ window.addEventListener("load", function(){
         },
     })
 });
-</script>
-
-<!-- script code for converting letters -->
-<script>
-function char_convert() {
-
-    var chars = ["Å","Ä","Ö"]; 
-    var codes = ["a", "a", "o"];
-
-    for(x=0; x<chars.length; x++){
-        for (i=0; i<arguments.length; i++){
-            arguments[i].value = arguments[i].value.replace(chars[x], codes[x]);
-        }
-        document.getElementById("current");
-
-    }
- }
-
-char_convert(this);
-
 </script>
 
 </body>

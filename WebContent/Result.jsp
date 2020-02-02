@@ -42,5 +42,70 @@
 	</div>
 </fieldset>
 
+<br><br>
+<!-- code to show cookies -->
+<p>Cookie testing / refresh page.</p>
+<%
+try {
+	response.setContentType("text/html");
+	
+	Cookie cookies[] = request.getCookies();
+	String cookieName1 = cookies[0].getName();
+	String cookieName2 = cookies[1].getName();
+	String cookieName3 = cookies[2].getName();
+	String cookieName4 = cookies[3].getName();
+	
+	out.println("<br><b>Last search: </b>");
+	
+	if (cookieName1.contentEquals("currentPos")) {
+		String currentPosition = cookies[0].getValue(); 
+		out.println("<br><b> From: </b>" + currentPosition);
+	}
+	else if (cookieName2.contentEquals("currentPos")) {
+		String currentPosition = cookies[1].getValue(); 
+		out.println("<br><b> From: </b>" + currentPosition);
+	}
+	else if (cookieName3.contentEquals("currentPos")) {
+		String currentPosition = cookies[2].getValue(); 
+		out.println("<br><b> From: </b>" + currentPosition);
+	}
+	else if (cookieName3.contentEquals("currentPos")) {
+		String currentPosition = cookies[2].getValue(); 
+		out.println("<br><b> From: </b>" + currentPosition);
+	}
+	else {
+		out.println("<br><b> From: </b>There is no recent searches");
+	}
+
+	if (cookieName1.contentEquals("searchPos")) {
+		String searchPosition = cookies[0].getValue(); 
+		out.println("<br><b> To: </b>" + searchPosition);
+	}
+	else if (cookieName2.contentEquals("searchPos")) {
+		String searchPosition = cookies[1].getValue(); 
+		out.println("<br><b> To: </b>" + searchPosition);
+	}
+	else if (cookieName3.contentEquals("searchPos")) {
+		String searchPosition = cookies[2].getValue(); 
+		out.println("<br><b> To: </b>" + searchPosition);
+	}
+	else if (cookieName3.contentEquals("searchPos")) {
+		String searchPosition = cookies[2].getValue(); 
+		out.println("<br><b> To: </b>" + searchPosition);
+	}
+	else {
+		out.println("<br><b> To: </b>There is no recent searches");
+	}
+	
+	out.println("<br><b>Cookies: </b>");
+	for(int i = 0; i < cookies.length; i++) {  
+		out.println("<br>" + cookies[i].getValue());
+	} 		
+}
+catch (Exception e) {
+	System.out.println(e);
+}			
+%>	
+
 </body>
 </html>

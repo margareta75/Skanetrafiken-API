@@ -3,7 +3,7 @@ package travelPackage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
+//import java.io.PrintWriter;
 import java.io.StringReader;
 import java.net.HttpURLConnection;
 
@@ -13,6 +13,7 @@ import java.net.URLEncoder;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,8 +21,8 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
+//import org.w3c.dom.Element;
+//import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
@@ -65,6 +66,39 @@ public class Servlet extends HttpServlet {
 			to = URLEncoder.encode(rawTo, "UTF-8");
 		}
 
+		//*************************************************************************
+		// Creating and saving cookies. Saves cookies with one word and with swedish letters.
+				
+		try {
+			response.setContentType("text/html");
+					
+			Cookie cookies[] = request.getCookies();
+			String cookieStatus = cookies[0].getValue();
+			String cookieStatus2 = cookies[1].getValue();
+					
+			if(cookieStatus.contentEquals("allow") || cookieStatus2.contentEquals("allow")) {
+				String currentPosition = request.getParameter("current");
+				String searchPosition = request.getParameter("to");
+						
+				Cookie currentPos = new Cookie("currentPos", currentPosition);
+				Cookie searchPos = new Cookie("searchPos", searchPosition);
+						
+				response.addCookie(currentPos);
+				response.addCookie(searchPos);
+						
+				System.out.println(currentPos);
+				System.out.println(searchPos);
+				System.out.println("allow");
+			}		
+			else if (cookieStatus.contentEquals("dismiss") || cookieStatus2.contentEquals("dismiss")) {
+				System.out.println("dismiss");
+				}				
+		}
+		catch (Exception e) {
+			System.out.println(e);
+		}
+				
+		//*************************************************************************
 		
 		// Building the Api so we can search the start point!
 		String URLtoSend = "http://labs.skanetrafiken.se/v2.2/querystation.asp?inpPointFr=" + from;
@@ -199,12 +233,12 @@ public class Servlet extends HttpServlet {
 	private int idFetch(NodeList node, String name) {
 		NodeList nList = node.item(0).getChildNodes();
 		int idNumber = 0;
-		for (int i = 0; i < nList.getLength(); i++) { // går i genom alla points en efter en tills man hittar rätt
+		for (int i = 0; i < nList.getLength(); i++) { // gï¿½r i genom alla points en efter en tills man hittar rï¿½tt
 														// point!
 
 			NodeList pointNode = nList.item(i).getChildNodes();
 
-			for (int j = 0; j < pointNode.getLength(); j++) { // Ska hittar rätt ID och name
+			for (int j = 0; j < pointNode.getLength(); j++) { // Ska hittar rï¿½tt ID och name
 				if (pointNode.item(j).getNodeName().equals("Id")) {
 					try {
 						idNumber = Integer.parseInt(pointNode.item(j).getTextContent());
