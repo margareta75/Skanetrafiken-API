@@ -213,7 +213,7 @@ public class Servlet extends HttpServlet {
 					}
 				}
 
-				if (pointNode.item(j).getTextContent().equals(name)) {
+				if (pointNode.item(j).getTextContent().equalsIgnoreCase(name)) {
 					return idNumber;
 				}
 
