@@ -1,4 +1,3 @@
-<%@page import="travelPackage.aBean"%>
 <%@page import="travelPackage.TravelData"%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"

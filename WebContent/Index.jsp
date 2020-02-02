@@ -18,7 +18,7 @@
 <!-- script code for map -->
 <div id="map"></div>
     <script>
-    var map = L.map('map').setView([55.59880451132639, 13.00845021573216], 15);
+    var map = L.map('map').setView([55.604981, 13.003822], 14);
        
     L.tileLayer('https://api.maptiler.com/maps/basic/256/{z}/{x}/{y}.png?key=xmfJHLqvFpBzkbiNM8ov', {
     	attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" layer=transportmap&amp target="_blank">&copy; OpenStreetMap contributors</a>',
